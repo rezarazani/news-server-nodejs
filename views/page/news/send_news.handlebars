@@ -1,0 +1,112 @@
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>ارسال پیام </h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>فرم</h2>  
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                       {{> form-msgs}}
+                       {{#if message}}
+                        <div class="alert alert-danger"> {{message}} </div>
+                        {{/if}}
+                    </div>
+                    <div class="x_content">
+                        <!-- start project list -->
+                        <form id="demo-form2" data-parsley-validate action="/panel/send_news" method="POST" enctype="multipart/form-data" onsubmit="createTextSnippet();" class="form-horizontal form-label-left">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">عنوان
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="title" type="text" id="first-name" required="required" value="{{title}}"
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                                </br>
+                                </br>
+                                </br>
+                                </br>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">توضیحات
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="description" type="text" id="first-name" required="required" value="{{description}}"
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                                </br>
+                                </br>
+                                </br>
+                                </br>
+
+                            <div class="form-group">
+                                <label  class="control-label col-md-3 col-sm-3 col-xs-12" dir="rtl">طبقه بندی</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="account_type" class=" form-control" tabindex="-1">
+                                        {{#select account_type}}
+                                        <option value=1> مدیر</option>
+                                        <option value=2>عادی </option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" dir="rtl">دسته بندی</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="category" class="form-control" tabindex="-1">
+                                       {{#select category}}
+                                        <option value="nahadNews">اخبار نهاد</option>
+                                        <option value="uniNews">اخبار دانشگاه</option>
+                                        <option value="activities">فعالان عرصه فرهنگی</option>
+                                        <option value="multiMedia">نشریه صوتی و تصویری</option>
+                                        {{!-- <option value="book">معرفی کتاب</option> --}}
+                                        {{/select}}                                  
+                                    </select>
+                                </div>
+                            </div>                      
+                            <label class="control-label  col-md-3 col-sm-3 col-xs-12" for="first-name">ارسال تصویر
+                            </label>
+                            <div class=" col-md-6 col-sm-6 col-xs-12">
+                                    <input name="img" type="file" 
+                                           class="form-control col-md-7 col-xs-12">
+                            </div> 
+                            </br>
+                            </br>
+                          <div class="control-group">
+                                <label class=" control-label col-md-3 col-sm-3 col-xs-12">ورودی برچسب</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="tag" id="tags_1" type="text" class="tags form-control"
+                                           value="{{tag}}" />                                          
+                                    <div id="suggestions-container"
+                                         style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+                                </div>
+                            </div>
+                                    <input type="hidden" name="text" id="hidden_snippet" value="" />
+
+                            </div>                        
+                                    <textarea name="text_tag" id="nahadEditor" rows="10" cols="80"> {{text_tag}}</textarea>
+                                    </br>
+                                    </br>
+                        <button type="submit" class="col-md-2 btn btn-round btn-primary"> ارسال</button>      
+                        </form>   
+                        <!-- end project list -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

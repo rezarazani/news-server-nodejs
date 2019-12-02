@@ -1,0 +1,83 @@
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>ارسال  فیلم  </h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>فرم</h2>  
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                         {{>form-msgs}}
+
+                    </div>
+                    <div class="x_content">
+                        <!-- start project list -->
+                        <form action="/panel/send_news_mov" method="POST" enctype="multipart/form-data"  class="form-horizontal form-label-left">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">عنوان
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="title" type="text" id="first-name" required="required"
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                                </br>
+                                </br>
+                                </br>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">توضیحات
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="description" type="text" id="first-name" required="required"
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>  
+                                </br>
+                                </br>
+                                </br>            
+                            <div class="form-group">
+                                <label  class="control-label col-md-3 col-sm-3 col-xs-12" dir="rtl">طبقه بندی</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="account_type" class=" form-control" tabindex="-1">
+                                        <option value=1> مدیر</option>
+                                        <option value=2>عادی </option>
+                                    </select>
+                                </div>
+                            </div>
+                                </br>
+
+                                <div class="container">
+                                        <label>ارسال فیلم</label>
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <span class="btn btn-default btn-file">
+                                                    Browse… <input type="file" name="film" required="required" id="imgInp">
+                                                </span>
+                                            </span>
+                                            <input type="text"  class="form-control" readonly>
+                                        </div>
+                                </div>
+                                </div>
+                                </br>
+                                <button type="submit" class="col-md-2 btn btn-round btn-primary"> ارسال</button>      
+
+                        </form>        
+                        <!-- end project list -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="fontiran.com:license" content="Y68A9">
+    <link rel="icon" href="/vendors/build/images/logo3.png" type="image/png"/>
+    <title>LU News</title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/bootstrap-rtl/dist/css/bootstrap-rtl.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+{{!-- upload --}}
+<link href="/vendors/upload/upload.css" rel="stylesheet">
+<!-- Datatables -->
+<link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+
+
+    <!-- Custom Theme Style -->
+    <link href="/vendors/build/css/custom.min.css" rel="stylesheet">
+</head>
+<!-- /header content -->
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col hidden-print">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="/panel/main" class="site_title"><img src="/vendors/build/images/logo3.png" width="50" height="50"> <span >LU NEWS </span></a>
+                    {{!-- <i class="fa  fa-institution"></i>  --}}
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                {{> menuProfileQuickInfo}}
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                {{> sidebarMenu}}
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                {{> menu_footer_buttons}}
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        {{> topNavigation}}
+        <!-- /top navigation -->
+        <!-- /header content -->
+        
+<!-- page content -->
+    <div style="padding-top:10px ">
+        {{!-- {{> form-msgs}} --}}
+    </div>
+
+{{{body}}}
+
+    </div>
+</div>
+<!-- /page content -->   
+</div>
+<!-- jQuery -->
+<script src="/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/vendors/fastclick/lib/fastclick.js"></script>
+
+
+
+<!-- Chart.js -->
+<script src="/vendors/Chart.js/dist/Chart.min.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/vendors/build/js/custom.min.js"></script>
+
+{{!-- Ck editor --}}
+<script src="/vendors/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+function createTextSnippet() {
+    //example as before, replace YOUR_TEXTAREA_ID
+    var html=CKEDITOR.instances.nahadEditor.getSnapshot();
+    var dom=document.createElement("DIV");
+    dom.innerHTML=html;
+    var plain_text=(dom.textContent || dom.innerText);
+
+    var text = CKEDITOR.instances.nahadEditor.editable().getText();
+
+    document.getElementById("hidden_snippet").value= text;
+
+    //return true, ok to submit the form
+    return true;
+}
+$.get( "/panel/ViewsCount", function(data) {
+  var view_chart = new Chart(document.getElementById("View-chart"), {
+  type: 'line',
+  data: {
+    labels: data.ViewsDate,
+    datasets: [{ 
+        data: data.ViewsManager,
+        label: "مدیران",
+        borderColor: "#3e95cd",
+        fill: true
+      }, { 
+        data: data.ViewsNormal,
+        label: "عادی",
+        borderColor: "#8e5ea2",
+        fill: true
+      }, { 
+        data: data.ViewsTotal,
+        label: "مجموع",
+        borderColor: "#3cba9f",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'تعداد بازدیدکندگان سایت خبری '
+    }
+  }
+});
+});
+
+$.get( "/panel/allViewsCount", function(data) {
+
+var all_Views = new Chart(document.getElementById("all_Views"), {
+    type: 'bar',
+    data: {
+      labels: ['کل بازدید ها' , 'کل خبر ها'],
+      datasets: [
+        {
+          label: "تعداد",
+          backgroundColor: ["#3cba9f" , '#8e5ea2' ],
+          data: [data.allViewsCount,data.allNewsCount,0]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'خبرها و بازدید های سایت'
+      }
+    }
+});
+
+});
+
+$.get( "/panel/categoryChar", function(data) {
+  
+  var lebelsCat = [] , values = [] , color = ['#364f6b' , '#3fc1c9' ,'#f5f5f5' , '#fc5185'] , r , g , b;
+  data.forEach(function(elm){
+    lebelsCat.push(elm.label);
+    values.push(elm.value);
+    r = Math.floor(Math.random() * 200);
+    g = Math.floor(Math.random() * 200);
+    b = Math.floor(Math.random() * 200);
+    color.concat(`rgb('${r},${g},${b})`);
+  });
+  //console.log( 'color', color);
+
+  var category_count = new Chart(document.getElementById("category-chart"), {
+    type: 'doughnut',
+    data: {
+      labels: lebelsCat,
+      datasets: [
+        {
+          label: "تعداد",
+          backgroundColor: color,
+          data: values
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'خبر های انتشار یافته براساس دسته بندی'
+      }
+    }
+});
+});
+
+$.get( "/panel/NorAndManViewsCount", function(data) {
+  var normal_manager = new Chart(document.getElementById("normal_manager_news"), {
+    type: 'bar',
+    data: {
+      labels: ["عادی" , "مدیران"],
+      datasets: [
+        {
+          label: "خبرهای نشر یافته",
+          backgroundColor: ["#3e95cd","#c45850" ],
+          data: [data.normalNewsCount ,data.mangerNewsCount ,0]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'خبر های انتشار یافته برای مدیران و عادی'
+      }
+    }
+});
+});
+
+
+</script>
+<script>CKEDITOR.replace( 'nahadEditor' );</script>
+
+<!-- jQuery Tags Input -->
+<script src="/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+{{!-- upload --}}
+<script src="/vendors/upload/upload.js"></script>
+<!-- Datatables -->
+<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    </body>
+</html>
